@@ -15,7 +15,7 @@ have to precede everything else.
 Just in case, my eclipse version is `2022-12 R`, JVM i use to test mods is `openjdk-1.8.0.362.b09-2.fc37`.
 
 ## Possible improvements (TODO?)
----
+
 #### use ASM framework to modify classes instead of Krakatau
 
 This would eliminate the need to override classes in projectx-pcode.jar,
