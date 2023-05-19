@@ -14,6 +14,13 @@ have to precede everything else.
 
 Just in case, my eclipse version is `2022-12 R`, JVM i use to test mods is `openjdk-1.8.0.362.b09-2.fc37`.
 
+Suffix `__Callback` in function name indicates that a function is a hook
+which is called from some overridden class. Main uses for those are:
+
+ - capturing private class fields
+ - intercepting methods calls
+ - providing an entry point for external code
+
 ## Possible improvements (TODO?)
 
 #### use ASM framework to modify classes instead of Krakatau
