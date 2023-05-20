@@ -5,8 +5,7 @@ maybe due to severe obfuscation (some identifiers are actual keywords
 meaning one would never be able to use them in java sources), maybe because
 eclipse just uses compile options i'm unaware of.
 
-Anyway, just export an archive using eclipse (will have to add projectx-pcode.jar
-to classpath through project perferences first), then use assemble.py from
+Anyway, just export an archive using eclipse then use assemble.py from
 [Krakatau](https://github.com/Storyyeller/Krakatau) on supplied .j files and
 add resulting classes to exported jars. Keep in mind that JVM only considers
 the first class implementation when traversing the classpath meaning mod jars

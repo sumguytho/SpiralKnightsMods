@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ModManager"/>
+	<classpathentry kind="lib" path="spiral/code/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="spiral/code/commons-digester.jar"/>
+	<classpathentry kind="lib" path="spiral/code/commons-logging.jar"/>
+	<classpathentry kind="lib" path="spiral/code/config.jar"/>
+	<classpathentry kind="lib" path="spiral/code/getdown-pro-new.jar"/>
+	<classpathentry kind="lib" path="spiral/code/jinput.jar"/>
+	<classpathentry kind="lib" path="spiral/code/jshortcut.jar"/>
+	<classpathentry kind="lib" path="spiral/code/jutils.jar"/>
+	<classpathentry kind="lib" path="spiral/code/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="spiral/code/lwjgl.jar"/>
+	<classpathentry kind="lib" path="spiral/code/projectx-config.jar"/>
+	<classpathentry kind="lib" path="spiral/code/projectx-pcode.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

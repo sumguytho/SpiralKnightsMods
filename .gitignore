@@ -1,2 +1,6 @@
-.classpath
 bin/
+/.metadata/
+# path to spiral knights installation
+spiral_shared
+# path to krakatau
+krakatau_shared
