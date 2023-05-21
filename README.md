@@ -39,3 +39,7 @@ One downside to this is that one can't use debbuger agent with ASM framework.
 Actually detecting classes that implement `Mod` interface (or maybe extend abstract
 class `Mod` if that would prove to be useful in the future) would be a lot better
 than specifying a list of classes to look for explicitly.
+
+#### read mod name and version from mod.json
+
+Would require refactoring `Mod` from interface to abstract class.

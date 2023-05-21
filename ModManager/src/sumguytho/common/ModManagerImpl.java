@@ -11,20 +11,15 @@ import com.threerings.projectx.client.chat.ProjectXChatDirector;
 import com.threerings.projectx.util.A;
 import com.threerings.util.N;
 
-public class ModManagerImpl implements Mod, ModSharedResources, ModManager {
+public class ModManagerImpl implements Mod, ModSharedResources, ModManager, TickObserver {
 	public static String NAME = "modmanager";
-	public static String VERSION = "1.0.0";
+	public static String VERSION = "1.1.0";
 
-	private static ModManagerImpl _modRoot;
+	private static ModManagerImpl _modRoot = new ModManagerImpl();
 	
 	private ModManagerImpl() { }
 	
-	public static ModManagerImpl get__Callback() {
-		if (_modRoot == null) {
-			_modRoot = new ModManagerImpl();
-		}
-		return _modRoot;
-	}
+	public static ModManagerImpl get__Callback() { return _modRoot; }
 	
 	public void init__Callback() { initMods(); }
 	
@@ -43,6 +38,7 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager {
         N msgbundle = _projxctx.getMessageManager().dI("chat");
         ModControlChatCommandHandler cmdhandler = new ModControlChatCommandHandler(_chatdir, new ModControl(this));
         _chatdir.a(msgbundle, "mods", cmdhandler);
+        EventQueue.invokeLater(new TickService(this));
 	}
 	@Override
 	public void enable() {}
@@ -68,7 +64,10 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager {
 	@Override
 	public ProjectXChatDirector getChatDir() { return _chatdir; }
 	
-	private ArrayList<String> _modClasses = new ArrayList<String>( Arrays.asList("sumguytho.hudhider.HUDHider") );
+	private ArrayList<String> _modClasses = new ArrayList<String>( Arrays.asList(
+			"sumguytho.hudhider.HUDHider",
+			"sumguytho.flight.Flight"
+			) );
 	private ArrayList<String> _modClassesNotFound = new ArrayList<String>();
 	private HashMap<String, Mod> _mods = new HashMap<String, Mod>();
 
@@ -114,4 +113,45 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager {
 	public Mod getMod(String name) { return _mods.get(name); }
 	@Override
 	public List<String> getMissingClassNames(){ return _modClassesNotFound; }
+
+	
+	
+	private static class TickService implements Runnable {
+		private TickObserver _rootTickObserver;
+		private long prevMillis = System.currentTimeMillis();
+		private static final long MILLIS_IN_SECOND = 1000;
+		
+		public TickService(TickObserver tickObserver){
+			_rootTickObserver = tickObserver;
+		}
+		
+		@Override
+		public void run() {
+			long curMillis = System.currentTimeMillis();
+			long elapsed = curMillis - prevMillis;
+			if (elapsed < MILLIS_IN_SECOND) {
+				_rootTickObserver.tick( (float)elapsed / MILLIS_IN_SECOND );
+			}
+			prevMillis = curMillis;
+			
+			EventQueue.invokeLater(this);
+		}
+	};
+	
+	private ArrayList<TickObserver> _tickObservers = new ArrayList<TickObserver>();
+
+	@Override
+	public void tick(float elapsed) {
+		for (TickObserver tickObserver : _tickObservers) {
+			tickObserver.tick(elapsed);
+		}
+	}
+	@Override
+	public void addTickObserver(TickObserver tickObserver) {
+		_tickObservers.add(tickObserver);
+	}
+	@Override
+	public void removeTickObserver(TickObserver tickObserver) {
+		_tickObservers.remove(tickObserver);
+	}
 }

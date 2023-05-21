@@ -9,4 +9,6 @@ public interface ModSharedResources {
 	aC getHUDWnd();
 	aC.a getHUDWndSmth();
 	ProjectXChatDirector getChatDir();
+	void addTickObserver(TickObserver tickObserver);
+	void removeTickObserver(TickObserver tickObserver);
 }

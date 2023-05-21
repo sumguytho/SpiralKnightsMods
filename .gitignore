@@ -1,6 +1,9 @@
 bin/
 /.metadata/
-# path to spiral knights installation
+# symlink to spiral knights installation
 spiral_shared
-# path to krakatau
-krakatau_shared
+# symlink to krakatau
+krakatau
+# symlink to JDK (!!! not JRE)
+# i use java-11-openjdk
+/jdk
