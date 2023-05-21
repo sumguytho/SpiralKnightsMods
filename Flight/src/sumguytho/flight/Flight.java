@@ -34,21 +34,25 @@ public class Flight implements Mod, TickObserver {
 	}
 
 	private ModSharedResources _res;
+	private boolean _wasInitialized = false;
+	private boolean _isEnabled = false;
 
 	@Override
 	public void ctor(ModSharedResources res) {
 		_res = res;
-		_res.addTickObserver(this);
 	}
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
-		
+		_res.addTickObserver(this);
+		_isEnabled = true;
+		_wasInitialized = true;
 	}
 	@Override
 	public boolean initializeReady() {
-		return _res.getProjXCtx() != null && _res.getProjXCtx().uk() != null;
+		return _res.getProjXCtx() != null && _res.getProjXCtx().uk() != null && Keyboard.isCreated();
 	}
+	@Override
+	public boolean wasInitialized() { return _wasInitialized; }
 	@Override
 	public void enable() {
 		// TODO Auto-generated method stub
@@ -60,15 +64,13 @@ public class Flight implements Mod, TickObserver {
 		
 	}
 	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean isEnabled() { return _isEnabled; }
 	@Override
 	public String getName() { return NAME; }
 	@Override
 	public String getVersion() { return VERSION; }
 
+	
 	@Override
 	public void tick(float elapsed) {
 		int moveUp = Keyboard.isKeyDown(Keyboard.KEY_UP) ? 1 : 0;

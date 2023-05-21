@@ -43,3 +43,8 @@ than specifying a list of classes to look for explicitly.
 #### read mod name and version from mod.json
 
 Would require refactoring `Mod` from interface to abstract class.
+
+#### migrate away from Eclipse JDT
+
+Projects react to changes in referenced projects very slowly and sometimes don't
+react at all.

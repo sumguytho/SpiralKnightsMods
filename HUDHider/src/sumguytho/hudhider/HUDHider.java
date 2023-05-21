@@ -12,7 +12,7 @@ import sumguytho.common.ModSharedResources;
 
 public class HUDHider implements Mod {
 	public static String NAME = "hudhider";
-	public static String VERSION = "1.0.0";
+	public static String VERSION = "2.0.0";
 	
 	public static HUDHider get__Callback() {
 		return (HUDHider)ModManagerImpl.get__Callback().getMod(NAME);
@@ -24,6 +24,7 @@ public class HUDHider implements Mod {
 
 	private ModSharedResources _res;
 	private boolean _isEnabled = false;
+	private boolean _wasInitialized = false;
 	private boolean _isHUDHidden = false;
 	
 	@Override
@@ -37,11 +38,14 @@ public class HUDHider implements Mod {
         chatdir.a(msgbundle, "hud", new HUDChatCommandHandler(chatdir, this));
         
         _isEnabled = true;
+		_wasInitialized = true;
 	}
 	@Override
 	public boolean initializeReady() {
 		return _res.getHUDWndSmth() != null && _res.getChatDir() != null;
 	}
+	@Override
+	public boolean wasInitialized() { return _wasInitialized; }
 	@Override
 	public void enable() { _isEnabled = true; }
 	@Override

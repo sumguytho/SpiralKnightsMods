@@ -13,7 +13,7 @@ import com.threerings.util.N;
 
 public class ModManagerImpl implements Mod, ModSharedResources, ModManager, TickObserver {
 	public static String NAME = "modmanager";
-	public static String VERSION = "1.1.0";
+	public static String VERSION = "2.0.0";
 
 	private static ModManagerImpl _modRoot = new ModManagerImpl();
 	
@@ -53,6 +53,8 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 	@Override
 	public boolean initializeReady() { return true; }
 	@Override
+	public boolean wasInitialized() { return true; }
+	@Override
 	public void initialize() { }
 
 	@Override
@@ -82,9 +84,9 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 		public void run() {
 			boolean uninitialized_left = false;
 			for (Mod mod : _modmgr.getMods()) {
-				boolean can_init = mod.initializeReady();
-				if (can_init) { mod.initialize(); }
-				uninitialized_left = uninitialized_left || !can_init;
+				boolean needs_init = !mod.wasInitialized();
+				if (needs_init && mod.initializeReady()) { mod.initialize(); }
+				uninitialized_left = uninitialized_left || needs_init;
 			}
 			if (uninitialized_left) { EventQueue.invokeLater(this); }
 		}
@@ -118,8 +120,10 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 	
 	private static class TickService implements Runnable {
 		private TickObserver _rootTickObserver;
-		private long prevMillis = System.currentTimeMillis();
+		private long _prevMillis = System.currentTimeMillis();
 		private static final long MILLIS_IN_SECOND = 1000;
+		private static final long TARGET_FPS = 60;
+		private static final long MILLIS_PER_FRAME = MILLIS_IN_SECOND / TARGET_FPS;
 		
 		public TickService(TickObserver tickObserver){
 			_rootTickObserver = tickObserver;
@@ -128,11 +132,14 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 		@Override
 		public void run() {
 			long curMillis = System.currentTimeMillis();
-			long elapsed = curMillis - prevMillis;
-			if (elapsed < MILLIS_IN_SECOND) {
-				_rootTickObserver.tick( (float)elapsed / MILLIS_IN_SECOND );
+			long elapsed = curMillis - _prevMillis;
+			
+			if (elapsed >= MILLIS_PER_FRAME) {
+				if (elapsed < MILLIS_IN_SECOND) {
+					_rootTickObserver.tick( (float)elapsed / MILLIS_IN_SECOND );
+				}
+				_prevMillis = curMillis;
 			}
-			prevMillis = curMillis;
 			
 			EventQueue.invokeLater(this);
 		}
@@ -148,10 +155,12 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 	}
 	@Override
 	public void addTickObserver(TickObserver tickObserver) {
+		if (tickObserver == null) { return; }
 		_tickObservers.add(tickObserver);
 	}
 	@Override
 	public void removeTickObserver(TickObserver tickObserver) {
+		if (tickObserver == null) { return; }
 		_tickObservers.remove(tickObserver);
 	}
 }
