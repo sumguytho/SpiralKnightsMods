@@ -7,3 +7,4 @@ krakatau
 # symlink to JDK (!!! not JRE)
 # i use java-11-openjdk
 /jdk
+/Tests/

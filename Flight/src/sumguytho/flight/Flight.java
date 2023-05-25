@@ -1,6 +1,8 @@
 package sumguytho.flight;
 
 import com.threerings.math.Vector2f;
+import com.threerings.projectx.client.chat.ProjectXChatDirector;
+import com.threerings.util.N;
 
 import org.lwjgl.input.Keyboard;
 
@@ -19,11 +21,13 @@ public class Flight implements Mod, TickObserver {
 	
 	// it's only accessed by awt eventqueue one event at a time so it needn't be atomic, i think?
 	private Vector2f _disposition = new Vector2f();
-	private static final float BASE_SPEED = 5.f;
+	public static final float BASE_SPEED = 5.f;
 	private float _speed = BASE_SPEED;
 	private Vector2f _latestPosition = new Vector2f();
 	
 	public void modifyActor__Callback(Vector2f position_inout, int actorId) {
+		if (!_isEnabled) { return; }
+		
 		int pawnId = _res.getProjXCtx().uk().pawnId;
 		if (actorId == pawnId) {
 			position_inout.x += _disposition.x;
@@ -44,25 +48,24 @@ public class Flight implements Mod, TickObserver {
 	@Override
 	public void initialize() {
 		_res.addTickObserver(this);
+
+        N msgbundle = _res.getProjXCtx().getMessageManager().dI("chat");
+        ProjectXChatDirector chatdir = _res.getChatDir();
+        chatdir.a(msgbundle, "flight", new FlightChatCommandHandler(chatdir, new FlightControl(this)));
+		
 		_isEnabled = true;
 		_wasInitialized = true;
 	}
 	@Override
 	public boolean initializeReady() {
-		return _res.getProjXCtx() != null && _res.getProjXCtx().uk() != null && Keyboard.isCreated();
+		return _res.getProjXCtx() != null && _res.getChatDir() != null && _res.getProjXCtx().uk() != null && Keyboard.isCreated();
 	}
 	@Override
 	public boolean wasInitialized() { return _wasInitialized; }
 	@Override
-	public void enable() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void enable() { _isEnabled = true; }
 	@Override
-	public void disable() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void disable() { _isEnabled = false; }
 	@Override
 	public boolean isEnabled() { return _isEnabled; }
 	@Override
@@ -73,6 +76,8 @@ public class Flight implements Mod, TickObserver {
 	
 	@Override
 	public void tick(float elapsed) {
+		if (!_isEnabled) { return; }
+		
 		int moveUp = Keyboard.isKeyDown(Keyboard.KEY_UP) ? 1 : 0;
 		int moveDown = Keyboard.isKeyDown(Keyboard.KEY_DOWN) ? 1 : 0;
 		int moveLeft = Keyboard.isKeyDown(Keyboard.KEY_LEFT) ? 1 : 0;
@@ -82,23 +87,16 @@ public class Flight implements Mod, TickObserver {
 		_disposition.y += elapsed * _speed * (moveUp - moveDown);
 	}
 	
-	public void setSpeed(float newSpeed) {
-		
-	}
-	public float getSpeed() {
-		return 0;
-	}
-	public void resetSpeed() {
-		
-	}
+	public void setSpeed(float newSpeed) { _speed = newSpeed; }
+	public float getSpeed() { return _speed; }
+	public void resetSpeed() { _speed = BASE_SPEED; }
 
 	public void setPosition(Vector2f newPosition) {
-		
+		_disposition.x = newPosition.x - _latestPosition.x;
+		_disposition.y = newPosition.y - _latestPosition.y;
 	}
 	public Vector2f getPosition() {
-		return new Vector2f();
+		return new Vector2f(_latestPosition.x + _disposition.x, _latestPosition.y + _disposition.y);
 	}
-	public void resetPosition() {
-		
-	}
+	public void resetPosition() { _disposition.x = _disposition.y = 0; }
 }

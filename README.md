@@ -48,3 +48,5 @@ Would require refactoring `Mod` from interface to abstract class.
 
 Projects react to changes in referenced projects very slowly and sometimes don't
 react at all.
+
+#### maybe a lex parser for chat commands
