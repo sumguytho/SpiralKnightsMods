@@ -5,13 +5,25 @@ maybe due to severe obfuscation (some identifiers are actual keywords
 meaning one would never be able to use them in java sources), maybe because
 eclipse just uses compile options i'm unaware of.
 
-Anyway, just export an archive using eclipse then use assemble.py from
-[Krakatau](https://github.com/Storyyeller/Krakatau) on supplied .j files and
-add resulting classes to exported jars. Keep in mind that JVM only considers
+**Steps to build mods:**
+
+ 1. open this repository as workplace in Eclipse and build all projects in it
+ 2. setup symlinks in repository root
+ - - jdk should point to a JDK
+ - - spiral_shared should point to Spiral Knights installation directory
+ - - krakatau should point to a cloned [Krakatau](https://github.com/Storyyeller/Krakatau) repository
+ 3. run `./make_jars.py`
+
+`./make_jars.py` will output jar files to `spiral_shared/code-mods` overriding
+previous versions of built jars.
+
+## Notes
+
+When adding mods to classpath keep in mind that JVM only considers
 the first class implementation when traversing the classpath meaning mod jars
 have to precede everything else.
 
-Just in case, my eclipse version is `2022-12 R`, JVM i use to test mods is `openjdk-1.8.0.362.b09-2.fc37`.
+Just in case, my eclipse version is `2022-12 R`, JRE i use to test mods is `openjdk-1.8.0.362.b09-2.fc37`.
 
 Suffix `__Callback` in function name indicates that a function is a hook
 which is called from some overridden class. Main uses for those are:
