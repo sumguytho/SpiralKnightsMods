@@ -8,3 +8,4 @@ spiral_shared
 # i use java-11-openjdk
 /jdk
 /Tests/
+/build/
