@@ -7,5 +7,6 @@ spiral_shared
 # symlink to JDK (!!! not JRE)
 # i use java-11-openjdk
 /jdk
+/jre
 /Tests/
 /build/

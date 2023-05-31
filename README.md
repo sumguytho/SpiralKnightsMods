@@ -9,9 +9,10 @@ eclipse just uses compile options i'm unaware of.
 
  1. open this repository as workplace in Eclipse and build all projects in it
  2. setup symlinks in repository root
- - - jdk should point to a JDK
- - - spiral_shared should point to Spiral Knights installation directory
- - - krakatau should point to a cloned [Krakatau](https://github.com/Storyyeller/Krakatau) repository
+ - - jdk should point to a JDK (like `ln -s /usr/lib/jvm/java-11-openjdk jdk`)
+ - - jre should point to a JRE (like `ln -s /usr/lib/jvm/jre-1.8.0-openjdk jre`)
+ - - spiral_shared should point to Spiral Knights installation directory (like `ln -s /home/$USER/Apps/Spiral spiral_shared`)
+ - - krakatau should point to a cloned [Krakatau](https://github.com/Storyyeller/Krakatau) repository (like `ln -s /home/$USER/work/java/Krakatau krakatau`)
  3. run `./make_jars.py`
 
 `./make_jars.py` will output jar files to `spiral_shared/code-mods` overriding
