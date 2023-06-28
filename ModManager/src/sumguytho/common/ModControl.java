@@ -66,40 +66,35 @@ public class ModControl {
 		return result;
 	}
 
-
-	private interface modManipCallable {
-		String call(Mod mod);
-	}
-	
-
 	public List<String> enable(String modName) {
-		return modManip(modName, mod -> {
-			mod.enable();
-			if (mod.isEnabled()) {
-				return modEnableSuccessString(modName);
-			}
-			return modEnableFailureString(modName);
-		});
-	}
-
-	public List<String> disable(String modName) {
-		return modManip(modName, mod -> {
-			mod.disable();
-			if (!mod.isEnabled()) {
-				return modDisableSuccessString(modName);
-			}
-			return modDisableFailureString(modName);
-		});
-	}
-
-
-	private List<String> modManip(String modName, modManipCallable action) {
 		List<String> result = new ArrayList<String>();
 		Mod mod = _modmgr.getMod(modName);
 
 		if (mod == null) { result.add( modNotFoundString(modName) ); }
-		else { result.add( action.call(mod) ); }
+		else {
+			mod.enable();
+			if (mod.isEnabled()) {
+				result.add( modEnableSuccessString(modName) );
+			}
+			result.add( modEnableFailureString(modName) );
+		}
+		
+		return result;
+	}
 
+	public List<String> disable(String modName) {
+		List<String> result = new ArrayList<String>();
+		Mod mod = _modmgr.getMod(modName);
+
+		if (mod == null) { result.add( modNotFoundString(modName) ); }
+		else {
+			mod.disable();
+			if (!mod.isEnabled()) {
+				result.add( modDisableSuccessString(modName) );
+			}
+			result.add( modDisableFailureString(modName) );
+		}
+		
 		return result;
 	}
 }

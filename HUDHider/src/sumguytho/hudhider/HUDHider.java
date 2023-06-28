@@ -12,7 +12,7 @@ import sumguytho.common.ModSharedResources;
 
 public class HUDHider implements Mod {
 	public static String NAME = "hudhider";
-	public static String VERSION = "2.0.0";
+	public static String VERSION = "2.0.1";
 	
 	public static HUDHider get__Callback() {
 		return (HUDHider)ModManagerImpl.get__Callback().getMod(NAME);

@@ -13,7 +13,7 @@ import com.threerings.util.N;
 
 public class ModManagerImpl implements Mod, ModSharedResources, ModManager, TickObserver {
 	public static String NAME = "modmanager";
-	public static String VERSION = "2.0.0";
+	public static String VERSION = "2.0.1";
 
 	private static ModManagerImpl _modRoot = new ModManagerImpl();
 	

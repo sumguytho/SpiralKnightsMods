@@ -13,7 +13,7 @@ import sumguytho.common.TickObserver;
 
 public class Flight implements Mod, TickObserver {
 	private static final String NAME = "flight";
-	private static final String VERSION = "1.0.0";
+	private static final String VERSION = "1.0.1";
 	
 	public static Flight get__Callback() {
 		return (Flight)ModManagerImpl.get__Callback().getMod(NAME);

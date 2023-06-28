@@ -10,3 +10,4 @@ spiral_shared
 /jre
 /Tests/
 /build/
+cmd_launch.sh

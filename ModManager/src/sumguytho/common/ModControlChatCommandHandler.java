@@ -40,12 +40,10 @@ public class ModControlChatCommandHandler extends c {
 	
 	// perhaps i could use a lex parser
 	private void subcommand(String name, StringTokenizer izer, List<String> result) {
-		switch(name) {
-		case "enable": { enable(izer.nextToken(), izer, result); } break;
-		case "disable": { disable(izer.nextToken(), izer, result); } break;
-		case "list": { list(izer, result); } break;
-		default:{ result.add(helpString()); }
-		}
+		if (name.equals("enable")) { enable(izer.nextToken(), izer, result); }
+		else if (name.equals("disable")) { disable(izer.nextToken(), izer, result); }
+		else if (name.equals("list")) { list(izer, result); }
+		else { result.add(helpString()); }
 	}
 	private void enable(String name, StringTokenizer izer, List<String> result) { result.addAll(_modctrl.enable(name)); }
 	private void disable(String name, StringTokenizer izer, List<String> result) { result.addAll(_modctrl.disable(name)); }

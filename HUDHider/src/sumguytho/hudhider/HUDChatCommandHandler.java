@@ -29,16 +29,16 @@ public class HUDChatCommandHandler extends c {
 			_chatdir.i( loopbackBundle, "You must enable mod first" );
 			return "success";
 		}
-		switch(args) {
-		case "show": {
+		if (args.equals("show")) {
 			_hudhider.showHUD();
 			_chatdir.i( loopbackBundle, actionString("shown") );
-		} break;
-		case "hide": {
+		}
+		else if (args.equals("hide")) {
 			_hudhider.hideHUD();
 			_chatdir.i( loopbackBundle, actionString("hidden") );
-		} break;
-		default: { _chatdir.i( loopbackBundle, helpString() ); }
+		}
+		else {
+			_chatdir.i( loopbackBundle, helpString() );
 		}
 		return "success";
 	}

@@ -44,37 +44,32 @@ public class FlightChatCommandHandler extends c {
 	}
 	
 	private void subcommand(String name, StringTokenizer izer, List<String> result) {
-		switch(name) {
-		case "info": { result.addAll( _flightctrl.getInfo() ); } break;
-		case "get": { get(izer.nextToken(), izer, result); } break;
-		case "set": { set(izer.nextToken(), izer, result); } break;
-		case "reset": { reset(izer.nextToken(), izer, result); } break;
-		default:{ result.add(helpString()); }
-		}
+		if (name.equals("info")) { result.addAll( _flightctrl.getInfo() ); }
+		else if (name.equals("get")) { get(izer.nextToken(), izer, result); }
+		else if (name.equals("set")) { set(izer.nextToken(), izer, result); }
+		else if (name.equals("reset")) { reset(izer.nextToken(), izer, result); }
+		else { result.add(helpString()); }
+		
 	}
 	
 	private void get(String name, StringTokenizer izer, List<String> result) {
-		switch(name) {
-		case "position": { result.addAll( _flightctrl.getPosition() ); } break;
-		case "speed": { result.addAll( _flightctrl.getSpeed() ); } break;
-		default:{ result.add(helpString()); }
-		}
+		if (name.equals("position")) { result.addAll( _flightctrl.getPosition() ); }
+		if (name.equals("speed")) { result.addAll( _flightctrl.getSpeed() ); }
+		else { result.add(helpString()); }
 	}
 	
 	private void set(String name, StringTokenizer izer, List<String> result) {
-		switch(name) {
-		case "position": { result.addAll( _flightctrl.setPosition( parseVector2f(izer) ) ); } break; 
-		case "speed": { result.addAll( _flightctrl.setSpeed( parseFloat(izer) ) ); } break;
-		default:{ result.add(helpString()); }
-		}
+		
+		if (name.equals("position")) { result.addAll( _flightctrl.setPosition( parseVector2f(izer) ) ); } 
+		if (name.equals("speed")) { result.addAll( _flightctrl.setSpeed( parseFloat(izer) ) ); }
+		else { result.add(helpString()); }
+		
 	}
 	
 	private void reset(String name, StringTokenizer izer, List<String> result) {
-		switch(name) {
-		case "position": { result.addAll( _flightctrl.resetPosition()); } break; 
-		case "speed": { result.addAll( _flightctrl.resetSpeed() ); } break;
-		default:{ result.add(helpString()); }
-		}
+		if (name.equals("position")) { result.addAll( _flightctrl.resetPosition()); }  
+		if (name.equals("speed")) { result.addAll( _flightctrl.resetSpeed() ); }
+		else { result.add(helpString()); }
 	}
 	
 	private Vector2f parseVector2f(StringTokenizer izer) {
