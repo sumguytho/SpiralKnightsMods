@@ -37,7 +37,8 @@ doesn't work one can launch it using cmd: `py cmd_launch.py`. In that case the
 current working directory should be the one containing the script. On Unix-like
 systems one can just execute `python3 cmd_launch.py` in the terminal emulator of choice.
 
-`cmd_launch.py` requires `spiral_shared` symlink (see above).
+All in all, just create a symlink `spiral_shared` that point to Spiral Knights installation
+directory and run `cmd_launch.py`.
 
 Alternatively one can use [yihleego's launcher](https://github.com/spiralstudio/mods),
 I didn't test it but it *should* work.
@@ -50,6 +51,17 @@ I didn't test it but it *should* work.
  - - JRE: Oracle's jre1.8.0_311.x86 - for Windows
  - Python 3.8.5 - for scripts, it should probably work with earlier versions it's just the one i use
  - Krakatau - the one i use is at commit ea9b62d01e53e3ab3de4731e79af2eb7b0fa3766
+
+## Mod commands
+
+Each mod uses chat commands for controls, the chat commands are:
+
+ * Mod Manager: /mod
+ * HUD Hider: /hud
+ * Flight: /flight
+
+Type each command in game chat to see further description as to how to use
+the mod.
 
 ## Notes
 
