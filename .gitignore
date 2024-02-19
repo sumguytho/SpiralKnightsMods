@@ -11,3 +11,4 @@ spiral_shared
 /Tests/
 /build/
 cmd_launch.sh
+/.vscode
