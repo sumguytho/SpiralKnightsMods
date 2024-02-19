@@ -2,14 +2,14 @@ package sumguytho.common;
 
 import com.threerings.projectx.client.chat.ProjectXChatDirector;
 import com.threerings.crowd.chat.client.m;
-import com.threerings.crowd.chat.client.a.c;
+import com.threerings.crowd.chat.client.a.chatCommand;
 
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class ModControlChatCommandHandler extends c {
+public class ModControlChatCommandHandler extends chatCommand {
 	private static final String loopbackBundle = LoopbackMessageBundle.NAME;
 
 	private ProjectXChatDirector _chatdir;
@@ -25,7 +25,7 @@ public class ModControlChatCommandHandler extends c {
 	}
 	
 	@Override
-    public final String a(m somethingOfTypem, String cmd, String args, String[] stringArrayOfSomething) {
+    public final String execute(m somethingOfTypem, String cmd, String args, String[] stringArrayOfSomething) {
 		StringTokenizer izer = new StringTokenizer(args);
 		List<String> result = new ArrayList<String>();
 
