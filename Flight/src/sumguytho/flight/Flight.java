@@ -2,7 +2,7 @@ package sumguytho.flight;
 
 import com.threerings.math.Vector2f;
 import com.threerings.projectx.client.chat.ProjectXChatDirector;
-import com.threerings.util.N;
+import com.threerings.util.L;
 
 import org.lwjgl.input.Keyboard;
 
@@ -28,7 +28,7 @@ public class Flight implements Mod, TickObserver {
 	public void modifyActor__Callback(Vector2f position_inout, int actorId) {
 		if (!_isEnabled) { return; }
 		
-		int pawnId = _res.getProjXCtx().uk().pawnId;
+		int pawnId = _res.getProjXCtx().ti().pawnId;
 		if (actorId == pawnId) {
 			position_inout.x += _disposition.x;
 			position_inout.y += _disposition.y;
@@ -49,7 +49,7 @@ public class Flight implements Mod, TickObserver {
 	public void initialize() {
 		_res.addTickObserver(this);
 
-        N msgbundle = _res.getProjXCtx().getMessageManager().dI("chat");
+        L msgbundle = _res.getProjXCtx().getMessageManager().dD("chat");
         ProjectXChatDirector chatdir = _res.getChatDir();
         chatdir.a(msgbundle, "flight", new FlightChatCommandHandler(chatdir, new FlightControl(this)));
 		
@@ -58,7 +58,7 @@ public class Flight implements Mod, TickObserver {
 	}
 	@Override
 	public boolean initializeReady() {
-		return _res.getProjXCtx() != null && _res.getChatDir() != null && _res.getProjXCtx().uk() != null && Keyboard.isCreated();
+		return _res.getProjXCtx() != null && _res.getChatDir() != null && _res.getProjXCtx().ti() != null && Keyboard.isCreated();
 	}
 	@Override
 	public boolean wasInitialized() { return _wasInitialized; }

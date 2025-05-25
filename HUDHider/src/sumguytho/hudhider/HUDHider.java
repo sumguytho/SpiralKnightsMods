@@ -1,7 +1,7 @@
 package sumguytho.hudhider;
 
-import com.threerings.projectx.client.aC;
-import com.threerings.util.N;
+import com.threerings.projectx.client.aD;
+import com.threerings.util.L;
 import com.threerings.projectx.client.chat.ProjectXChatDirector;
 
 import java.util.Iterator;
@@ -33,7 +33,7 @@ public class HUDHider implements Mod {
 	}
 	@Override
 	public void initialize() {
-        N msgbundle = _res.getProjXCtx().getMessageManager().dI("chat");
+        L msgbundle = _res.getProjXCtx().getMessageManager().dD("chat");
         ProjectXChatDirector chatdir = _res.getChatDir();
         chatdir.a(msgbundle, "hud", new HUDChatCommandHandler(chatdir, this));
         
@@ -42,7 +42,7 @@ public class HUDHider implements Mod {
 	}
 	@Override
 	public boolean initializeReady() {
-		return _res.getHUDWndSmth() != null && _res.getChatDir() != null;
+		return _res.getHUDWndRoot() != null && _res.getChatDir() != null;
 	}
 	@Override
 	public boolean wasInitialized() { return _wasInitialized; }
@@ -58,10 +58,10 @@ public class HUDHider implements Mod {
 	@Override
 	public String getVersion() { return VERSION; }
 	
-	public void hideHUD() { if (_isEnabled) { setComponentsVisible(_res.getHUDWndSmth(), false); } }
-	public void showHUD() { if (_isEnabled) { setComponentsVisible(_res.getHUDWndSmth(), true); } }
+	public void hideHUD() { if (_isEnabled) { setComponentsVisible(_res.getHUDWndRoot(), false); } }
+	public void showHUD() { if (_isEnabled) { setComponentsVisible(_res.getHUDWndRoot(), true); } }
 	
-	public void setComponentsVisible(aC.a hud, boolean value) {
+	public void setComponentsVisible(aD.a hud, boolean value) {
 		Iterator<String> componentsIter = hud.getTagged().keySet().iterator();
 		while (componentsIter.hasNext()) {
 			String comp = componentsIter.next();

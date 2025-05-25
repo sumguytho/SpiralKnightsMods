@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.threerings.projectx.client.aC;
+import com.threerings.opengl.gui.ax;
+import com.threerings.projectx.client.aD;
 import com.threerings.projectx.client.chat.ProjectXChatDirector;
 import com.threerings.projectx.util.A;
 import com.threerings.util.L;
@@ -25,13 +26,13 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 	public void init__Callback() { initMods(); }
 	
 	private A _projxctx;
-	private aC _hudwnd;
-	private aC.a _hudwndsmth;
+	private aD _hudwnd;
+	private aD.a _hudwndroot;
 	private ProjectXChatDirector _chatdir;
 	
 	public void setProjXCtx__Callback(A ctx) { _projxctx = ctx; }
-	public void setHUDWnd__Callback(aC hud) { _hudwnd = hud; }
-	public void setHUDWndSmth__Callback(aC.a hudwndsmth) { _hudwndsmth = hudwndsmth; }
+	public void setHUDWnd__Callback(aD hud) { _hudwnd = hud; }
+	public void setHUDWndRoot__Callback(aD.a hud) { _hudwndroot = hud; }
 	public void setChatDir__Callback(ProjectXChatDirector chatDir) { _chatdir = chatDir; }
 
 	@Override
@@ -62,9 +63,9 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 	@Override
 	public A getProjXCtx() { return _projxctx; }
 	@Override
-	public aC getHUDWnd() { return _hudwnd; }
+	public aD getHUDWnd() { return _hudwnd; }
 	@Override
-	public aC.a getHUDWndSmth() { return _hudwndsmth; }
+	public aD.a getHUDWndRoot() { return _hudwndroot; }
 	@Override
 	public ProjectXChatDirector getChatDir() { return _chatdir; }
 	
