@@ -15,21 +15,21 @@ import com.threerings.util.M;
 
 public class ModManagerImpl implements Mod, ModSharedResources, ModManager, TickObserver {
 	public static String NAME = "modmanager";
-	public static String VERSION = "2.0.1";
+	public static String VERSION = "3.0.0";
 
 	private static ModManagerImpl _modRoot = new ModManagerImpl();
-	
+
 	private ModManagerImpl() { }
-	
+
 	public static ModManagerImpl get__Callback() { return _modRoot; }
-	
+
 	public void init__Callback() { initMods(); }
-	
+
 	private A _projxctx;
 	private aD _hudwnd;
 	private aD.a _hudwndroot;
 	private ProjectXChatDirector _chatdir;
-	
+
 	public void setProjXCtx__Callback(A ctx) { _projxctx = ctx; }
 	public void setHUDWnd__Callback(aD hud) { _hudwnd = hud; }
 	public void setHUDWndRoot__Callback(aD.a hud) { _hudwndroot = hud; }
@@ -68,7 +68,7 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 	public aD.a getHUDWndRoot() { return _hudwndroot; }
 	@Override
 	public ProjectXChatDirector getChatDir() { return _chatdir; }
-	
+
 	private ArrayList<String> _modClasses = new ArrayList<String>( Arrays.asList(
 			"sumguytho.hudhider.HUDHider",
 			"sumguytho.flight.Flight"
@@ -78,11 +78,11 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 
 	private static class ModInitializer implements Runnable {
 		private ModManager _modmgr;
-		
+
 		public ModInitializer(ModManager modmgr) {
 			_modmgr = modmgr;
 		}
-		
+
 		@Override
 		public void run() {
 			boolean uninitialized_left = false;
@@ -94,7 +94,7 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 			if (uninitialized_left) { EventQueue.invokeLater(this); }
 		}
 	};
-	
+
 	@Override
 	public void initMods() {
 		ctor(this);
@@ -119,35 +119,35 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 	@Override
 	public List<String> getMissingClassNames(){ return _modClassesNotFound; }
 
-	
-	
+
+
 	private static class TickService implements Runnable {
 		private TickObserver _rootTickObserver;
 		private long _prevMillis = System.currentTimeMillis();
 		private static final long MILLIS_IN_SECOND = 1000;
 		private static final long TARGET_FPS = 60;
 		private static final long MILLIS_PER_FRAME = MILLIS_IN_SECOND / TARGET_FPS;
-		
+
 		public TickService(TickObserver tickObserver){
 			_rootTickObserver = tickObserver;
 		}
-		
+
 		@Override
 		public void run() {
 			long curMillis = System.currentTimeMillis();
 			long elapsed = curMillis - _prevMillis;
-			
+
 			if (elapsed >= MILLIS_PER_FRAME) {
 				if (elapsed < MILLIS_IN_SECOND) {
 					_rootTickObserver.tick( (float)elapsed / MILLIS_IN_SECOND );
 				}
 				_prevMillis = curMillis;
 			}
-			
+
 			EventQueue.invokeLater(this);
 		}
 	};
-	
+
 	private ArrayList<TickObserver> _tickObservers = new ArrayList<TickObserver>();
 
 	@Override
