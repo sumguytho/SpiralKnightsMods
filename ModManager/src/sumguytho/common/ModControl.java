@@ -10,7 +10,7 @@ public class ModControl {
 		_modmgr = modmgr;
 	}
 
-	
+
 	private String loadedModsString() {
 		return "Loaded mods:";
 	}
@@ -40,7 +40,7 @@ public class ModControl {
 		return String.format("Couldn't disable mod %s", modName);
 	}
 
-	
+
 	public List<String> getModStatus(String modName) {
 		List<String> result = new ArrayList<String>();
 		Mod mod = _modmgr.getMod(modName);
@@ -51,7 +51,7 @@ public class ModControl {
 		}
 		return result;
 	}
-	
+
 	public List<String> getModsStatus() {
 		List<String> result = new ArrayList<String>();
 		result.add(loadedModsString());
@@ -76,9 +76,11 @@ public class ModControl {
 			if (mod.isEnabled()) {
 				result.add( modEnableSuccessString(modName) );
 			}
-			result.add( modEnableFailureString(modName) );
+			else {
+				result.add( modEnableFailureString(modName) );
+			}
 		}
-		
+
 		return result;
 	}
 
@@ -92,9 +94,11 @@ public class ModControl {
 			if (!mod.isEnabled()) {
 				result.add( modDisableSuccessString(modName) );
 			}
-			result.add( modDisableFailureString(modName) );
+			else {
+				result.add( modDisableFailureString(modName) );
+			}
 		}
-		
+
 		return result;
 	}
 }
