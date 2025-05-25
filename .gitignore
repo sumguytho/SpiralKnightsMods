@@ -5,10 +5,9 @@ spiral_shared
 # symlink to krakatau
 /krakatau
 # symlink to JDK (!!! not JRE)
-# i use java-11-openjdk
+# I use java-11-openjdk
 /jdk
 /jre
 /Tests/
 /build/
-cmd_launch.sh
 /.vscode

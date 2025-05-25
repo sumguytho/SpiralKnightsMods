@@ -7,12 +7,13 @@ java sources), maybe because eclipse just uses compile options I'm unaware of.
 
 **Steps to build mods:**
 
- 1. add this repository to a workplace in Eclipse and build all projects in it
+ 1. add this repository to a workplace in Eclipse
  2. setup symlinks in repository root
  - - `/path/to/project/jdk` - should point to a JDK
  - - `/path/to/project/spiral_shared` - should point to Spiral Knights installation directory
  - - `/path/to/project/krakatau` - should point to a cloned [Krakatau](https://github.com/Storyyeller/Krakatau) repository
- 3. run `./make_jars.py`
+ 3. build all mods in Eclipse
+ 4. run `./make_jars.py`
 
 `./make_jars.py` will output jar files to `spiral_shared/code-mods` overriding
 previous versions of built jars.
@@ -36,6 +37,7 @@ Launching on Windows should be as easy as double clicking the file, if that
 doesn't work one can launch it using cmd: `py cmd_launch.py`. In that case the
 current working directory should be the one containing the script. On Unix-like
 systems one can just execute `python3 cmd_launch.py` in the terminal emulator of choice.
+Convenience scripts cmd_launch.sh and cmd_launch.bat can be double clicked to do the same.
 
 All in all, just create a symlink `spiral_shared` that point to Spiral Knights installation
 directory and run `cmd_launch.py`.
