@@ -1,4 +1,7 @@
+#!/bin/env python3
+
 import os, glob, subprocess, platform, argparse
+import sys
 import shlex
 
 
@@ -82,12 +85,13 @@ def win_rm_io_prefix(path):
 
 
 def main():
+    default_memspec = "512M"
     parser = argparse.ArgumentParser(prog="cmd_launch", description="a utility script that launches Spiral Knights with code mods bypassing getdown")
     parser.add_argument("--use-jdwp", action="store_true", default=False, help="start JVM with a JDWP agent that listens on localhost:8083 (remote debugging)")
     parser.add_argument("--hotspot-options", action="store_true", default=False, help="use -XX JVM options (heavily relies on JVM implementation)")
     parser.add_argument("--dry-run", action="store_true", default=False, help="print a list of strings that are going to be passed to subprocess and exit")
     parser.add_argument("--extra-args", default="", help="additional arguments to be passed to launch string")
-    parser.add_argument("--memspec", default="2G", help="maximum memory allowed for JVM, passed to -Xmx directly, 2G by default")
+    parser.add_argument("--memspec", default=default_memspec, help=f"maximum memory allowed for JVM, passed to -Xmx directly, {default_memspec} by default")
 
     args = parser.parse_args()
 
@@ -106,6 +110,7 @@ def main():
     if is_windows: call_args = [ win_rm_io_prefix(arg) for arg in call_args ]
     if args.dry_run:
         print(f"{spiral_path=}\n{jre_path=}")
+        print("call_args=")
         for arg in call_args:
             print("\t", arg)
     else:

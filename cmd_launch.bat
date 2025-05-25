@@ -1,1 +1,1 @@
-py cmd_launch.py --extra-args "\-Xdiag"
+py cmd_launch.py
