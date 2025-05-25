@@ -74,6 +74,10 @@ which is called from some overridden class. Main uses for those are:
  - intercepting methods calls
  - providing an entry point for external code
 
+Now that I think about it, mods will never be compatible with Knight Launcher. Knight Launcher only loads code from mods
+without resources and bootstrap code uses ProjectXApp directly which makes JVM load it immediately. The only solution
+that I can think of currently would be to add code mods to classpath.
+
 ## Possible improvements (TODO?, I'm still figuring stuff out)
 
 #### make mods usable for normal users

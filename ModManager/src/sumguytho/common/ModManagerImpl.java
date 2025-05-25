@@ -9,7 +9,8 @@ import java.util.Arrays;
 import com.threerings.projectx.client.aC;
 import com.threerings.projectx.client.chat.ProjectXChatDirector;
 import com.threerings.projectx.util.A;
-import com.threerings.util.N;
+import com.threerings.util.L;
+import com.threerings.util.M;
 
 public class ModManagerImpl implements Mod, ModSharedResources, ModManager, TickObserver {
 	public static String NAME = "modmanager";
@@ -32,10 +33,11 @@ public class ModManagerImpl implements Mod, ModSharedResources, ModManager, Tick
 	public void setHUDWnd__Callback(aC hud) { _hudwnd = hud; }
 	public void setHUDWndSmth__Callback(aC.a hudwndsmth) { _hudwndsmth = hudwndsmth; }
 	public void setChatDir__Callback(ProjectXChatDirector chatDir) { _chatdir = chatDir; }
-	
+
 	@Override
 	public void ctor(ModSharedResources res) {
-        N msgbundle = _projxctx.getMessageManager().dI("chat");
+		M msgManager = _projxctx.getMessageManager();
+        L msgbundle = msgManager.dD("chat");
         ModControlChatCommandHandler cmdhandler = new ModControlChatCommandHandler(_chatdir, new ModControl(this));
         _chatdir.a(msgbundle, "mods", cmdhandler);
         EventQueue.invokeLater(new TickService(this));
