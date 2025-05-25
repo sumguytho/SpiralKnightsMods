@@ -9,8 +9,9 @@ public class WorldClass {
         Class<?> var_0 = cuchaz.enigma.Enigma.class;
         Class<?> var_1 = com.threerings.projectx.client.ProjectXApp.class;
         Class<?> var_2 = com.a.b.a.class;
-        Class<?> var_3 = com.threerings.crowd.client.l.class;
-        Class<?> var_4 = worldclassuser.WorldClassUser.TestClass.class;
+        Class<?> var_3 = com.a.c.a.class;
+        Class<?> var_4 = com.threerings.crowd.client.l.class;
+        Class<?> var_5 = com.a.c.k.class;
     }
 
 
