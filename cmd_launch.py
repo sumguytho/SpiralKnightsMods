@@ -1,4 +1,5 @@
 import os, glob, subprocess, platform, argparse
+import shlex
 
 
 def symlink_abspath(symlink, throw=True):
@@ -82,6 +83,7 @@ def main():
     parser.add_argument("--use-jdwp", action="store_true", default=False, help="start JVM with a JDWP agent that listens on localhost:8083 (remote debugging)")
     parser.add_argument("--hotspot-options", action="store_true", default=False, help="use -XX JVM options (heavily relies on JVM implementation)")
     parser.add_argument("--dry-run", action="store_true", default=False, help="print a list of strings that are going to be passed to subprocess and exit")
+    parser.add_argument("--extra-args", default="", help="additional arguments to be passed to launch string")
 
     args = parser.parse_args()
 
@@ -92,9 +94,10 @@ def main():
     spiral_path = make_spiral_path()
     jre_path = make_jre_path(spiral_path, is_windows)
     opts = make_extra_opts( spiral_path, args.use_jdwp, args.hotspot_options )
+    extra_args = shlex.split(args.extra_args)
     classpath = make_classpath( os.path.join(spiral_path, "code"), os.path.join(spiral_path, "code-mods"), pathspec_sep )
 
-    call_args = [ os.path.join(jre_path, "bin", "java"), "-classpath", classpath, *opts, "com.threerings.projectx.client.ProjectXApp" ]
+    call_args = [ os.path.join(jre_path, "bin", "java"), "-classpath", classpath, *opts, *extra_args, "com.threerings.projectx.client.ProjectXApp" ]
     # JVM doesn't seem to like Windows I/O prefixes 
     if is_windows: call_args = [ win_rm_io_prefix(arg) for arg in call_args ]
     if args.dry_run:

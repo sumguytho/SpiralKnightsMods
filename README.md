@@ -7,7 +7,7 @@ java sources), maybe because eclipse just uses compile options I'm unaware of.
 
 **Steps to build mods:**
 
- 1. open this repository as a workplace in Eclipse and build all projects in it
+ 1. add this repository to a workplace in Eclipse and build all projects in it
  2. setup symlinks in repository root
  - - `/path/to/project/jdk` - should point to a JDK
  - - `/path/to/project/spiral_shared` - should point to Spiral Knights installation directory
@@ -40,17 +40,19 @@ systems one can just execute `python3 cmd_launch.py` in the terminal emulator of
 All in all, just create a symlink `spiral_shared` that point to Spiral Knights installation
 directory and run `cmd_launch.py`.
 
-Alternatively one can use [yihleego's launcher](https://github.com/spiralstudio/mods),
-I didn't test it but it *should* work.
+`The mods in this repository don't work with yihleego's implementation of code mods in Knight Launcher.`
+This is because I use different logic for mods building which is inherently incompatible with his. I'm
+not migrating to mods implementation of Knight Launcher because neither my nor its implementation is
+supportable in the long run. Once a supportable option is established, I will.
 
 ## Dependencies
 
- - Eclipse JDT 2022-12 R - i use its compiler because javac just doesn't do it
- - JDK / JRE - should work with JVM the Spiral Knights is shipped with, although i use
+ - Eclipse JDT 2022-12 R - I use its compiler because javac just doesn't do it
+ - JDK / JRE - should work with JVM the Spiral Knights is shipped with, although I use
  - - JDK: openjdk-11.0.19.0.7-1.x86_64; JRE: openjdk-1.8.0.362.x86_64 - for Linux
  - - JRE: Oracle's jre1.8.0_311.x86 - for Windows
- - Python 3.8.5 - for scripts, it should probably work with earlier versions it's just the one i use
- - Krakatau - the one i use is at commit ea9b62d01e53e3ab3de4731e79af2eb7b0fa3766
+ - Python 3.8.5 - for scripts, it should probably work with earlier versions it's just the one I use
+ - Krakatau - the one I use is at commit ea9b62d01e53e3ab3de4731e79af2eb7b0fa3766
 
 ## Mod commands
 
@@ -72,35 +74,29 @@ which is called from some overridden class. Main uses for those are:
  - intercepting methods calls
  - providing an entry point for external code
 
-## Possible improvements (TODO?, i'm still figuring stuff out)
+## Possible improvements (TODO?, I'm still figuring stuff out)
 
-#### use ASM framework to modify classes instead of Krakatau
+#### make mods usable for normal users
 
-This would eliminate the need to override classes in projectx-pcode.jar,
-and as a consequence allow a completely standalone solution.
+Right now the process is still impossible for usual folk.
 
-Not only does this allow multiple modifications to the same class coexist,
-but, under certain circumstances, it might allow multiple modifications
-to the same method (without performance implications in mind, that is) to
-coexist peacefully.
+#### make mods more supportable
 
-One downside to this is that one can't use debbuger agent with ASM framework.
+The process should be:
+ 1. Produce deobfuscated projectx-pcode.jar.
+ 2. Apply mappings.
+ 3. Build mods against deobfuscated jar (mods should use deobfuscated namings).
+ 4. Apply inverse mappings to mods thus making them usable with obfuscated jar.
 
-#### use org.reflections to detect new mods
+This way the source code uses normal names and output mods can be used with original jar without modification.
+One potential problem is that when applying mapping through Enigma non-class contents are lost so rsrc from jars will be lost.
 
-Actually detecting classes that implement `Mod` interface (or maybe extend abstract
-class `Mod` if that would prove to be useful in the future) would be a lot better
-than specifying a list of classes to look for explicitly.
+#### some other way of discovering mods
 
-#### read mod name and version from mod.json
-
-Would require refactoring `Mod` from interface to abstract class.
+Will require making Mod an abstract class instead of interface.
 
 #### migrate away from Eclipse JDT
 
-Projects react to changes in referenced projects very slowly and sometimes don't
-react at all.
-
-#### maybe a lex parser for chat commands
-
-#### maybe I could use make / bitbake or some other established thing for building
+Projects react to changes in referenced projects very slowly and sometimes don't react at all.
+I can't use javac to compile stuff though, this only works in Eclipse for some reason.
+Using deobfuscated jar should solve this.
