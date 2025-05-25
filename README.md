@@ -24,9 +24,9 @@ Symlinks are created using `ln -s` on Unix-like systems and `mklink /d` on Windo
 
 ### Quickstart
 
- 1. Download mods-<version>.zip
- 2. Extract folder mods-<version>
- 3. Copy contents of mods-<version> to Spiral Knights directory
+ 1. Download mods-\<version\>.zip
+ 2. Extract folder mods-\<version\>
+ 3. Copy contents of mods-\<version\> to Spiral Knights directory
  4. Double click cmd_launch.bat on Windows or cmd_launch.sh on Linux distro
  5. Type `/mods list` in game chat to check whether the mods have been loaded
 
