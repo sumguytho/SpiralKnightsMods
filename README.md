@@ -65,6 +65,7 @@ supportable in the long run. Once a supportable option is established, I will.
  - - JRE: Oracle's jre1.8.0_311.x86 - for Windows
  - Python 3.8.5 - for scripts, it should probably work with earlier versions it's just the one I use
  - Krakatau - the one I use is at commit ea9b62d01e53e3ab3de4731e79af2eb7b0fa3766
+ - all of the jars from `Spiral Knights/code/`
 
 ## Mod commands
 
@@ -116,3 +117,7 @@ Will require making Mod an abstract class instead of interface.
 Projects react to changes in referenced projects very slowly and sometimes don't react at all.
 I can't use javac to compile stuff though, this only works in Eclipse for some reason.
 Using deobfuscated jar should solve this.
+
+#### hud hider doesn't work
+
+The hud root is recreated between locations, it should be used as observer and not one time getter.
